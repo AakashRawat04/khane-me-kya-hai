@@ -12,11 +12,13 @@ const envSchema = z.object({
   POSTGRES_HOST: z.string(),
   POSTGRES_PASSWORD: z.string(),
   POSTGRES_DATABASE: z.string(),
+  BASE_URL: z.string(),
 })
 
 const parsedEnvSchema = envSchema.parse(process.env)
 
 export const environment = {
+  BASE_URL: parsedEnvSchema.BASE_URL,
   NODE_ENV: parsedEnvSchema.NODE_ENV,
   POSTGRES: {
     URL: parsedEnvSchema.POSTGRES_URL,
