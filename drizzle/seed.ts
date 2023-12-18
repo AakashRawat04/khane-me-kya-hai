@@ -1,34 +1,46 @@
 import { dayTableData, dishTableData } from "@/drizzle/placeholder-data"
 import { dayTabel, dishTable } from "@/schema/schema"
 import { db } from "@/utils/db"
-import { config } from "dotenv"
+import { type PgTableWithColumns } from "drizzle-orm/pg-core"
 
-config()
+type TableData = {
+  [key: string]: string | number
+}[]
 
-async function seed() {
+async function seed(
+  table: PgTableWithColumns<any>,
+  data: TableData,
+  tableName: string
+) {
+  const startTime = new Date().getTime()
+  const rows = await db.select().from(table)
+  if (!rows.length) {
+    await db.insert(table).values(data)
+    const timeTaken = new Date().getTime() - startTime
+    console.log(
+      `\x1b[32m${tableName} table seeded successfully. Time taken:`,
+      timeTaken,
+      "ms\x1b[0m"
+    )
+    return
+  }
+
+  const queryTime = new Date().getTime() - startTime
+  console.log(
+    `\x1b[32m${tableName} table already contains data. queryTime:`,
+    queryTime,
+    "ms\x1b[0m"
+  )
+}
+
+async function main() {
   try {
-    console.log("\x1b[32mSeeding database...\x1b[0m")
-    const startTime = new Date().getTime()
-
-    await db.insert(dishTable).values(dishTableData)
-    const dishTableTime = new Date().getTime() - startTime
-    console.log(
-      "\x1b[32mDish table seeded successfully. Time taken:",
-      dishTableTime,
-      "ms\x1b[0m"
-    )
-
-    await db.insert(dayTabel).values(dayTableData)
-    const dayTableTime = new Date().getTime() - startTime - dishTableTime
-    console.log(
-      "\x1b[32mDay table seeded successfully. Time taken:",
-      dayTableTime,
-      "ms\x1b[0m"
-    )
+    await seed(dayTabel, dayTableData, "dayTable")
+    await seed(dishTable, dishTableData, "dishTable")
   } catch (e) {
     console.error("\x1b[31mError seeding database:\x1b[0m")
     console.error(e)
   }
 }
 
-seed()
+main()
