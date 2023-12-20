@@ -1,5 +1,6 @@
-import { Days } from "@/types/days"
-import { environment } from "@/config/environment"
+import { dayTable } from "@/schema/schema"
+import { db } from "@/utils/db"
+
 import { Separator } from "@/components/ui/separator"
 
 import Menu from "./menu-form"
@@ -9,8 +10,7 @@ interface MenuPerDayAndHourProps {
 }
 
 export async function generateStaticParams() {
-  const res = await fetch(`${environment.BASE_URL}/api/menu/days`)
-  const days: Days = await res.json()
+  const days = await db.select().from(dayTable)
   const hours = ["breakfast", "lunch", "snack", "dinner"]
 
   return days
