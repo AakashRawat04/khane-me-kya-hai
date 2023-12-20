@@ -6,14 +6,13 @@ const main = async () => {
   try {
     console.log("\x1b[32mApplying Migration Changes...\x1b[0m")
     await migrate(db, { migrationsFolder: drizzleConfig.out! })
+    console.log("\x1b[32mMigration Changes Applied Successfully!\x1b[0m")
+    process.exit(0)
   } catch (error) {
     console.error(
       "\x1b[31mError While Applying Migration Changes:\x1b[0m",
       error
     )
-  } finally {
-    console.log("\x1b[32mMigration Changes Applied Successfully!\x1b[0m")
-    // sql.end()
   }
 }
 

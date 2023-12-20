@@ -6,7 +6,7 @@ export const dishTable = pgTable("dishes", {
   dislikes: integer("dislikes").default(0),
 })
 
-export const dayTabel = pgTable("days", {
+export const dayTable = pgTable("days", {
   id: uuid("id").primaryKey().notNull().defaultRandom(),
   dayNumber: integer("dayNumber").notNull(),
   dayName: text("dayName").notNull(),

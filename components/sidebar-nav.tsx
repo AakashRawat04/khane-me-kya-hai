@@ -17,13 +17,13 @@ const sidebarDayItems = [
 const sidebarHourItems = ["Breakfast", "Lunch", "Snack", "Dinner"]
 
 interface SidebarNavProps extends React.ComponentProps<"div"> {
-  week: string
+  day: string
   hour: string
 }
 
 export function SidebarNav({
   className,
-  week,
+  day,
   hour,
   ...props
 }: SidebarNavProps) {
@@ -42,7 +42,7 @@ export function SidebarNav({
             href={`/dashboard/${item.toLowerCase()}/${hour.toLowerCase()}`}
             className={cn(
               buttonVariants({ variant: "ghost" }),
-              item.toLowerCase() === week
+              item.toLowerCase() === day
                 ? "bg-muted hover:bg-muted"
                 : "hover:bg-transparent hover:underline",
               "justify-start"
@@ -51,6 +51,17 @@ export function SidebarNav({
             {item}
           </Link>
         ))}
+        <Link
+          href={`/dashboard/editDishesh`}
+          className={cn(
+            buttonVariants({ variant: "ghost" }),
+            "hover:bg-green-500 hover:underline",
+            " justify-start",
+            "bg-green-400 text-black"
+          )}
+        >
+          Edit Dishesh
+        </Link>
       </nav>
       <nav
         className={cn(
@@ -62,7 +73,7 @@ export function SidebarNav({
         {sidebarHourItems.map((item) => (
           <Link
             key={item}
-            href={`/dashboard/${week.toLowerCase()}/${item.toLowerCase()}`}
+            href={`/dashboard/${day.toLowerCase()}/${item.toLowerCase()}`}
             className={cn(
               buttonVariants({ variant: "ghost" }),
               item.toLowerCase() === hour
