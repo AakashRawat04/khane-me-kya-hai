@@ -27,24 +27,12 @@ export default function EditDishLayout({ children }: EditDishLayoutProps) {
               href={`/dashboard/monday/breakfast`}
               className={cn(
                 buttonVariants({ variant: "ghost" }),
-                "hover:bg-green-500 hover:underline",
+                "hover:bg-green-500 hover:text-black",
                 " justify-start",
                 "bg-green-400 text-black"
               )}
             >
               Go to Edit Menu
-            </Link>
-            <Link
-              href={`/dashboard/editDishesh${
-                isDeleteDisheshPage ? "/" : "/deleteDishesh"
-              }`}
-              className={cn(
-                buttonVariants({
-                  variant: `${isDeleteDisheshPage ? "outline" : "destructive"}`,
-                })
-              )}
-            >
-              Go to {isDeleteDisheshPage ? "Add Dishesh" : "Delete Dishesh"}
             </Link>
           </aside>
           <div className="flex-1 px-10 lg:w-full" style={{ flex: 1 }}>

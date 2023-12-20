@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { add_dishes } from "@/action/edit-dishes-form"
-import { insertDishTableSchema } from "@/schema/schema"
+import { insertDishTableSchema } from "@/schema/database-types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
 import z from "zod"
