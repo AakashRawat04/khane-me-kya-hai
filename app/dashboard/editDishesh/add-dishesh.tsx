@@ -119,7 +119,7 @@ export function AddDishesh() {
             Add Dish
           </Button>
         </div>
-        <Button type="submit">Update profile</Button>
+        <Button type="submit">Update Dishes</Button>
       </form>
     </Form>
   )
