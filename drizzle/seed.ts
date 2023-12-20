@@ -1,5 +1,5 @@
 import { dayTableData, dishTableData } from "@/drizzle/placeholder-data"
-import { dayTabel, dishTable } from "@/schema/schema"
+import { dayTable, dishTable } from "@/schema/schema"
 import { db } from "@/utils/db"
 import { type PgTableWithColumns } from "drizzle-orm/pg-core"
 
@@ -35,7 +35,7 @@ async function seed(
 
 async function main() {
   try {
-    await seed(dayTabel, dayTableData, "dayTable")
+    await seed(dayTable, dayTableData, "dayTable")
     await seed(dishTable, dishTableData, "dishTable")
   } catch (e) {
     console.error("\x1b[31mError seeding database:\x1b[0m")
