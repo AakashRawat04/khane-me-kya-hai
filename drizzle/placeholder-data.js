@@ -83,3 +83,34 @@ export const dayTableData = [
     dayName: "Sunday",
   },
 ]
+
+export const mealTableData = [
+  {
+    dayNumber: 1,
+    dishes: [],
+  },
+  {
+    dayNumber: 2,
+    dishes: [],
+  },
+  {
+    dayNumber: 3,
+    dishes: [],
+  },
+  {
+    dayNumber: 4,
+    dishes: [],
+  },
+  {
+    dayNumber: 5,
+    dishes: [],
+  },
+  {
+    dayNumber: 6,
+    dishes: [],
+  },
+  {
+    dayNumber: 7,
+    dishes: [],
+  },
+]

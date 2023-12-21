@@ -1,4 +1,4 @@
-import { integer, pgTable, text, uuid } from "drizzle-orm/pg-core"
+import { integer, pgTable, text, uuid, varchar } from "drizzle-orm/pg-core"
 
 export const dishTable = pgTable("dishes", {
   id: uuid("id").primaryKey().notNull().defaultRandom(),
@@ -15,23 +15,23 @@ export const dayTable = pgTable("days", {
 export const breakfastTable = pgTable("breakfast", {
   id: uuid("id").primaryKey().notNull().defaultRandom(),
   dayNumber: integer("dayno").notNull(),
-  dishes: integer("dishes").array().notNull(),
+  dishes: varchar("dishes").array().notNull(),
 })
 
 export const lunchTable = pgTable("lunch", {
   id: uuid("id").primaryKey().notNull().defaultRandom(),
   dayNumber: integer("dayno").notNull(),
-  dishes: integer("dishes").array().notNull(),
+  dishes: varchar("dishes").array().notNull(),
 })
 
 export const snackTable = pgTable("snack", {
   id: uuid("id").primaryKey().notNull().defaultRandom(),
   dayNumber: integer("dayno").notNull(),
-  dishes: integer("dishes").array().notNull(),
+  dishes: varchar("dishes").array().notNull(),
 })
 
 export const dinnerTable = pgTable("dinner", {
   id: uuid("id").primaryKey().notNull().defaultRandom(),
   dayNumber: integer("dayno").notNull(),
-  dishes: integer("dishes").array().notNull(),
+  dishes: varchar("dishes").array().notNull(),
 })
