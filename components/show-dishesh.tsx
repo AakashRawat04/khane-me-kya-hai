@@ -80,7 +80,7 @@ export const columns: ColumnDef<DishTable>[] = [
   },
   {
     id: "actions",
-    enableHiding: false,
+    accessorKey: "Actions",
     cell: ({ row }) => {
       const dish = row.original
 
