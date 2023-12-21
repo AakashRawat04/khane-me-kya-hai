@@ -55,7 +55,7 @@ export function SidebarNav({
           href={`/dashboard/editDishesh`}
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            "hover:bg-green-500 hover:underline",
+            "hover:bg-green-500 hover:text-black",
             " justify-start",
             "bg-green-400 text-black"
           )}

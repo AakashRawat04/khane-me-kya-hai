@@ -1,10 +1,21 @@
-import { dayTableData, dishTableData } from "@/drizzle/placeholder-data"
-import { dayTable, dishTable } from "@/schema/schema"
+import {
+  dayTableData,
+  dishTableData,
+  mealTableData,
+} from "@/drizzle/placeholder-data"
+import {
+  breakfastTable,
+  dayTable,
+  dinnerTable,
+  dishTable,
+  lunchTable,
+  snackTable,
+} from "@/schema/schema"
 import { db } from "@/utils/db"
 import { type PgTableWithColumns } from "drizzle-orm/pg-core"
 
 type TableData = {
-  [key: string]: string | number
+  [key: string]: string | number | string[]
 }[]
 
 async function seed(
@@ -37,6 +48,10 @@ async function main() {
   try {
     await seed(dayTable, dayTableData, "dayTable")
     await seed(dishTable, dishTableData, "dishTable")
+    await seed(breakfastTable, mealTableData, "breakfastTable")
+    await seed(lunchTable, mealTableData, "lunchTable")
+    await seed(snackTable, mealTableData, "snackTable")
+    await seed(dinnerTable, mealTableData, "dinnerTable")
   } catch (e) {
     console.error("\x1b[31mError seeding database:\x1b[0m")
     console.error(e)

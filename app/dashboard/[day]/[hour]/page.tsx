@@ -3,10 +3,11 @@ import { db } from "@/utils/db"
 
 import { Separator } from "@/components/ui/separator"
 
-import Menu from "./menu-form"
+import { MenuForm } from "./menu-form"
+import { DisplayMenu } from "./menu-table"
 
 interface MenuPerDayAndHourProps {
-  params: { day: string; hour: string }
+  params: { day: string; hour: "breakfast" | "lunch" | "snack" | "dinner" }
 }
 
 export async function generateStaticParams() {
@@ -37,9 +38,12 @@ export default function MenuPerDayAndHour({ params }: MenuPerDayAndHourProps) {
           Displaying <span className="text-yellow-300"> {hour} </span> menu for{" "}
           <span className="text-lime-300">{day}</span>.
         </p>
+        <div className="w-2/5">
+          <DisplayMenu day={day} hour={hour} />
+        </div>
         <Separator className="mt-3" />
       </div>
-      <Menu day={day} hour={hour} />
+      <MenuForm day={day} hour={hour} />
     </div>
   )
 }
