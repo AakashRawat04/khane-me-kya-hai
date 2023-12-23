@@ -1,4 +1,8 @@
+"use client"
+
 import Link from "next/link"
+
+// import cookies from "nookies"
 
 import { cn } from "@/lib/utils"
 
@@ -62,6 +66,23 @@ export function SidebarNav({
         >
           Edit Dishesh
         </Link>
+        <Link
+          href={`/`}
+          className={cn(
+            buttonVariants({ variant: "ghost" }),
+            "hover:bg-green-500 hover:text-black",
+            " justify-start",
+            "bg-green-400 text-black"
+          )}
+        >
+          Home
+        </Link>
+        <a
+          href={`/api/auth/logout`}
+          className={cn(buttonVariants({ variant: "destructive" }))}
+        >
+          Log Out
+        </a>
       </nav>
       <nav
         className={cn(

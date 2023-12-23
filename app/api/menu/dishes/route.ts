@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { update_dishes } from "@/action/edit-dishes-form"
 import { dishTable } from "@/schema/schema"
 import { db } from "@/utils/db"
+import { getToken } from "@/utils/getToken"
 
 export async function GET() {
   const days = await db.select().from(dishTable)
@@ -10,6 +11,12 @@ export async function GET() {
 }
 
 export async function PATCH(request: NextRequest) {
+  const token = getToken()
+  if (!token) {
+    return NextResponse.json({
+      error: "Unauthorized",
+    })
+  }
   const { dayNo, meal, dishes } = await request.json()
   if (!dayNo || !meal || !dishes) {
     return NextResponse.json({ success: false, error: "Invalid data" })

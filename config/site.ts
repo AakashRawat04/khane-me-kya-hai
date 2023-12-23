@@ -8,9 +8,12 @@ export const siteConfig = {
       title: "Home",
       href: "/",
     },
+    {
+      title: "dashboard",
+      href: "/dashboard/monday/breakfast",
+    },
   ],
   links: {
-    github: "https://github.com/aakashrawat04",
-    docs: "https://ui.shadcn.com",
+    github: "https://github.com/aakashrawat04/khane-me-kya-hai",
   },
 }

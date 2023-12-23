@@ -50,12 +50,13 @@ export function DisplayMenu({
   React.useEffect(() => {
     const fetchMenu = async () => {
       const { dishes } = await fetch(fetchMenuUrl).then((res) => res.json())
+      console.log("dishes from fetch menu", dishes)
       setMenu(dishes)
       setLoading(false)
     }
 
     fetchMenu()
-  })
+  }, [fetchMenuUrl])
   return (
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>

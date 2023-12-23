@@ -10,6 +10,8 @@ import {
 import { db } from "@/utils/db"
 import { eq, inArray } from "drizzle-orm"
 
+export const dynamic = "force-dynamic"
+
 const getMenu = async (dayno: number, meal: string) => {
   switch (meal) {
     case "breakfast":
@@ -47,6 +49,9 @@ export async function GET(request: NextRequest) {
     const dayno = searchParams.get("dayno")
     const meal = searchParams.get("meal")
 
+    console.log("dayno", dayno)
+    console.log("meal", meal)
+
     if (!dayno || !meal) {
       return NextResponse.json({
         error: "Missing day or meal",
@@ -62,9 +67,11 @@ export async function GET(request: NextRequest) {
       .select()
       .from(dishTable)
       .where(inArray(dishTable.id, dishIds))
+    console.log("dishes from route.ts", dishes)
 
     return NextResponse.json({ dishes: dishes })
   } catch (e) {
-    return NextResponse.json({ success: false })
+    console.log("error while returning menu", e)
+    return NextResponse.json({ success: false, dishes: [] })
   }
 }

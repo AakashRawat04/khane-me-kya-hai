@@ -35,3 +35,9 @@ export const dinnerTable = pgTable("dinner", {
   dayNumber: integer("dayno").notNull(),
   dishes: varchar("dishes").array().notNull(),
 })
+
+export const userTable = pgTable("users", {
+  id: uuid("id").primaryKey().notNull().defaultRandom(),
+  email: text("email").notNull(),
+  password: text("password").notNull(),
+})
