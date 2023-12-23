@@ -10,6 +10,8 @@ import {
 import { db } from "@/utils/db"
 import { eq, inArray } from "drizzle-orm"
 
+export const dynamic = "force-dynamic"
+
 const getMenu = async (dayno: number, meal: string) => {
   switch (meal) {
     case "breakfast":
@@ -69,6 +71,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ dishes: dishes })
   } catch (e) {
+    console.log("error while returning menu", e)
     return NextResponse.json({ success: false, dishes: [] })
   }
 }

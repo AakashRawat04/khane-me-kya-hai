@@ -19,15 +19,16 @@ import { Button } from "./ui/button"
 
 export default function MenuTable() {
   const date = new Date()
-  const day = date.getDay()
+  const day = date.getDay() === 0 ? 7 : date.getDay()
   const weekdayNames = [
-    "Sunday",
+    "",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
+    "Sunday",
   ]
   const mealHours = ["Breakfast", "Lunch", "Snack", "Dinner"]
   const currentHour = date.getHours()
@@ -56,10 +57,11 @@ export default function MenuTable() {
       const { dishes } = await fetch(
         `/api/menu?dayno=${day}&meal=${mealHour.toLowerCase()}`
       ).then((res) => res.json())
+      console.log("dishes from fetch menu", dishes)
       setDishes(dishes)
     }
     fetchMenu()
-  })
+  }, [day, mealHour])
 
   async function onDislike(dishid: string) {
     await fetch(`/api/menu/dishes/dislike`, {
@@ -68,7 +70,7 @@ export default function MenuTable() {
         dishId: dishid,
       }),
     })
-    window.location.reload()
+    return window.location.reload()
   }
 
   return (
