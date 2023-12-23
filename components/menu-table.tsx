@@ -1,3 +1,8 @@
+"use client"
+
+import React, { useEffect } from "react"
+import { DishTable } from "@/schema/database-types"
+
 import {
   Table,
   TableBody,
@@ -9,45 +14,105 @@ import {
 } from "@/components/ui/table"
 
 import { Icons } from "./icons"
+import { Badge } from "./ui/badge"
 import { Button } from "./ui/button"
 
 export default function MenuTable() {
-  return (
-    <Table>
-      <TableCaption>
-        Best of Luch surviving todays Food.
-        <Icons.heart />
-      </TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[50px]">Index</TableHead>
-          <TableHead className="w-[200px]">Item</TableHead>
-          <TableHead className="text-right">Dislikes</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableCell className="font-medium">1</TableCell>
-          <TableCell>chappati</TableCell>
-          <TableCell className="flex items-center justify-end text-right">
-            <Button variant="outline" size="icon">
-              <Icons.dislike className="h-4 w-4" />
-            </Button>
+  const date = new Date()
+  const day = date.getDay()
+  const weekdayNames = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ]
+  const mealHours = ["Breakfast", "Lunch", "Snack", "Dinner"]
+  const currentHour = date.getHours()
+  let mealHour = ""
 
-            <span className="ml-4">69</span>
-          </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-medium">2</TableCell>
-          <TableCell>chappati</TableCell>
-          <TableCell className="text-right">69</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-medium">3</TableCell>
-          <TableCell>chappati</TableCell>
-          <TableCell className="text-right">69</TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
+  if (currentHour >= 6 && currentHour < 10) {
+    mealHour = mealHours[0] // Breakfast
+  } else if (currentHour >= 10 && currentHour < 14) {
+    mealHour = mealHours[1] // Lunch
+  } else if (currentHour >= 14 && currentHour < 18) {
+    mealHour = mealHours[2] // Snack
+  } else {
+    mealHour = mealHours[3] // Dinner
+  }
+
+  const formattedDate = date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  })
+
+  const [dishes, setDishes] = React.useState<DishTable[]>([])
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      const { dishes } = await fetch(
+        `/api/menu?dayno=${day}&meal=${mealHour.toLowerCase()}`
+      ).then((res) => res.json())
+      setDishes(dishes)
+    }
+    fetchMenu()
+  })
+
+  async function onDislike(dishid: string) {
+    await fetch(`/api/menu/dishes/dislike`, {
+      method: "POST",
+      body: JSON.stringify({
+        dishId: dishid,
+      }),
+    })
+    window.location.reload()
+  }
+
+  return (
+    <>
+      <div className="flex w-full flex-row justify-between px-2">
+        <div className="justify-start">
+          {weekdayNames[day]} - {mealHour}
+        </div>
+
+        <div className="justify-end">
+          <Badge variant="outline">{formattedDate}</Badge>
+        </div>
+      </div>
+
+      <Table>
+        <TableCaption>Best of Luch surviving todays Food.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[50px]">Index</TableHead>
+            <TableHead className="w-[200px]">Dishes</TableHead>
+            <TableHead className="text-right">Dislikes</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {dishes.map((dish, index) => (
+            <TableRow key={dish.id}>
+              <TableCell className="font-medium">{index + 1}</TableCell>
+              <TableCell>{dish.name}</TableCell>
+              <TableCell className="flex items-center justify-end text-right">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => {
+                    onDislike(dish.id)
+                  }}
+                >
+                  <Icons.dislike className="h-4 w-4" />
+                </Button>
+                <span className="ml-4">{dish.dislikes}</span>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
   )
 }

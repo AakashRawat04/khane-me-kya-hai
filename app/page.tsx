@@ -23,14 +23,6 @@ export default function IndexPage() {
         </div>
         <div className="flex gap-4">
           <Link
-            href={siteConfig.links.docs}
-            target="_blank"
-            rel="noreferrer"
-            className={buttonVariants()}
-          >
-            Login
-          </Link>
-          <Link
             target="_blank"
             rel="noreferrer"
             href={siteConfig.links.github}
@@ -39,14 +31,24 @@ export default function IndexPage() {
             GitHub
           </Link>
         </div>
-        <div className="flex w-full flex-row justify-between px-2">
-          <div className="justify-start">Monday - Breakfast</div>
 
-          <div className="justify-end">
-            <Badge variant="outline">12.12.23</Badge>
-          </div>
-        </div>
         <MenuTable />
+        <footer className="flex w-full items-center justify-center gap-2">
+          <a
+            href="https://github.com/aakashrawat04"
+            target={"_blank"}
+            rel="noreferrer"
+          >
+            <Badge>aakashrawat04</Badge>
+          </a>
+          <a
+            href="https://github.com/jatindotdev"
+            target={"_blank"}
+            rel="noreferrer"
+          >
+            <Badge>jatindotdev</Badge>
+          </a>
+        </footer>
       </section>
     </>
   )

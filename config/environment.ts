@@ -13,11 +13,13 @@ const envSchema = z.object({
   POSTGRES_PASSWORD: z.string(),
   POSTGRES_DATABASE: z.string(),
   BASE_URL: z.string(),
+  JWT_SECRET: z.string(),
 })
 
 const parsedEnvSchema = envSchema.parse(process.env)
 
 export const environment = {
+  JWT_SECRET: parsedEnvSchema.JWT_SECRET,
   BASE_URL: parsedEnvSchema.BASE_URL,
   NODE_ENV: parsedEnvSchema.NODE_ENV,
   POSTGRES: {
