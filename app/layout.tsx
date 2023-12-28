@@ -1,5 +1,7 @@
 "use client"
 
+import { Analytics } from "@vercel/analytics/react"
+
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
@@ -27,6 +29,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="relative flex min-h-screen flex-col">
               <div className="flex-1">{children}</div>
             </div>
+            <Analytics />
             <Toaster />
             <TailwindIndicator />
           </ThemeProvider>
